@@ -1,42 +1,44 @@
 package model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_usuario")
 public class Usuario {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	@Column(length = 20)
 	private String login;
 	
 	@Column(name = "senha")  
 	private String senhaEncriptada;
 	private String nome;
 	private String cpf;
+
+	@OneToOne(mappedBy = "numero", cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "credito",foreignKey = @ForeignKey(name = "fk_us_credito"))
+	private Conta credito;
+	@OneToOne(mappedBy = "numero", cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "banco",foreignKey = @ForeignKey(name = "fk_us_banco"))
+	private Conta banco;
 	
 	public Usuario() {}
 
-	public Usuario(Integer id, String login, String senhaEncriptada, String nome, String cpf) {
+	public Usuario(String login, String senhaEncriptada, String nome, String cpf) {
 		super();
-		this.id = id;
 		this.login = login;
 		this.senhaEncriptada = senhaEncriptada;
 		this.nome = nome;
 		this.cpf = cpf;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getLogin() {
