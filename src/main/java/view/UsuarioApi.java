@@ -4,7 +4,7 @@ import java.util.List;
 
 import dao.UsuarioRepository;
 import model.Usuario;
-
+//teste
 public class UsuarioApi {
 
 		static UsuarioRepository repository = new UsuarioRepository();  
