@@ -4,24 +4,26 @@ import java.util.List;
 
 import dao.UsuarioRepository;
 import model.Usuario;
-//teste
+
 public class UsuarioApi {
 
 		static UsuarioRepository repository = new UsuarioRepository();  
 		
 		public static void main(String[] args) {
-			save();
+			//save();
 			//update();
 			//list();
 		}
+		/*
 		static void save() {
 			Usuario usuario = new Usuario();
 			usuario.setNome("Teste");
 			usuario.setCpf("333222111");
 			usuario.setLogin("testandoTudo");
 			usuario.setSenhaEncriptada("123"); 
-			repository.save(usuario);  
+			repository.save(usuario);      
 		}
+		
 		static void update() {
 			Object idUsuarioQueSalvouNaBase = 1; //mudar
 			
@@ -45,5 +47,5 @@ public class UsuarioApi {
 				System.out.println(u);    
 			}
 		}
-
+*/
 }

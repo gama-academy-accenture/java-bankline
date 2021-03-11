@@ -23,10 +23,13 @@ public class Lancamento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataDeReferencia;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date vencimento;
+	
 	@Column(precision = 2)
 	private Double valor;
 

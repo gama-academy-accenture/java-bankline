@@ -11,22 +11,37 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "tb_usuario")
 public class Usuario {
 	@Id
-	@Column(length = 20)
+	private Integer id;
+	
+	@Column(unique = true, length = 20)  
+	@NotNull
+	@Size(min = 3, max = 20)
 	private String login;
 	
 	@Column(name = "senha")  
+	@NotNull
 	private String senhaEncriptada;
+	
+	@NotNull
 	private String nome;
+	
+	@Column(unique = true)  
+	@CPF(message = "CPF Inválido")  
 	private String cpf;
 
 	@OneToOne(mappedBy = "numero", cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "credito",foreignKey = @ForeignKey(name = "fk_us_credito"))
 	private Conta credito;
+	
 	@OneToOne(mappedBy = "numero", cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "banco",foreignKey = @ForeignKey(name = "fk_us_banco"))
 	private Conta banco;
@@ -73,5 +88,11 @@ public class Usuario {
 		this.cpf = cpf;
 	}
 	
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
+	public Integer getId() {
+		return id;
+	}
 }

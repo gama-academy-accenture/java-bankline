@@ -20,10 +20,18 @@ public class Conta {
 	@Id
 	@Column(length = 20)
 	private String numero; //composto pelo login do usuario e o tipo da conta
+	
 	@Enumerated(EnumType.STRING)
 	private TiposDeConta tipoDeConta;
+	
 	@Column(name = "usuario_id")
 	private Integer usuarioId;
+	
+	/*
+	 * @ManyToOne
+	 * private Usuario usuarioId;
+	 * */
+	
 	private Double saldo; //consolidado porque o saldo total vem do balanço entre receitas e despesas  
 
 	@OneToMany(mappedBy = "conta", cascade = CascadeType.PERSIST)
@@ -67,5 +75,11 @@ public class Conta {
 		this.lancamentos = lancamentos;
 	}
 	
-
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+	
+	public String getNumero() {
+		return numero;
+	}
 }

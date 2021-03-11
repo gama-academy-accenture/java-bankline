@@ -7,6 +7,6 @@ public enum TiposDeConta {
 
 	TiposDeConta(String tipo) {
 		this.tipo = tipo;
-	}
+	}  
 
 }
