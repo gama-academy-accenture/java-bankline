@@ -1,50 +1,52 @@
 package model;
 
-import javax.persistence.CascadeType;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "tb_usuario")
 public class Usuario {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Column(unique = true, length = 20)  
-	@NotNull
-	@Size(min = 3, max = 20)
+	//@NotNull
+	//@Size(min = 3, max = 20)
 	private String login;
 	
 	@Column(name = "senha")  
-	@NotNull
+	//@NotNull
 	private String senhaEncriptada;
 	
-	@NotNull
+	//@NotNull
 	private String nome;
 	
 	@Column(unique = true)  
-	@CPF(message = "CPF Inválido")  
+	//@CPF(message = "CPF Inválido")  
 	private String cpf;
 
+	/*
 	@OneToOne(mappedBy = "numero", cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "credito",foreignKey = @ForeignKey(name = "fk_us_credito"))
 	private Conta credito;
 	
-	@OneToOne(mappedBy = "numero", cascade = CascadeType.REMOVE)
+	@OneToOne(mappedBy = "numero", cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "banco",foreignKey = @ForeignKey(name = "fk_us_banco"))
 	private Conta banco;
+	*/
+	@OneToMany(mappedBy = "usuarioId")
+	private List<Conta> contas;    
+	  
+	@OneToMany(mappedBy = "usuario")  
+	private List<PlanoDeConta> planoConta;
 	
 	public Usuario() {}
 
@@ -94,5 +96,21 @@ public class Usuario {
 	
 	public Integer getId() {
 		return id;
+	}
+	
+	public void setContas(List<Conta> contas) {
+		this.contas = contas;
+	}
+	
+	public List<Conta> getContas() {
+		return contas;
+	}
+	
+	public void setPlanoConta(List<PlanoDeConta> planoConta) {
+		this.planoConta = planoConta;
+	}
+	
+	public List<PlanoDeConta> getPlanoConta() {
+		return planoConta;
 	}
 }

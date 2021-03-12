@@ -9,6 +9,14 @@ public enum TipoMovimento {
 	private String tipoMovimento;     
 
 	TipoMovimento(String tipoMovimento) {
-		this.tipoMovimento = tipoMovimento;    
+		this.setTipoMovimento(tipoMovimento);    
+	}
+
+	public String getTipoMovimento() {
+		return tipoMovimento;
+	}
+
+	public void setTipoMovimento(String tipoMovimento) {
+		this.tipoMovimento = tipoMovimento;
 	}  
 }

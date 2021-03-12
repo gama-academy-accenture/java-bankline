@@ -1,8 +1,6 @@
 package dao;
 
-import model.Conta;
 import model.Usuario;
-import model.enumeracoes.TiposDeConta;
 
 public class UsuarioRepository extends AbstractRepository<Usuario> implements Repository<Usuario>{
 	/*

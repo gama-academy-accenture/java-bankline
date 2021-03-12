@@ -2,7 +2,6 @@ package model;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -11,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,15 +32,19 @@ public class Lancamento {
 	private Double valor;
 
 	@ManyToOne
-	@JoinColumn(name = "beneficiario",foreignKey = @ForeignKey(name = "fk_lc_beneficiario"))
+	@JoinColumn(name = "beneficiario_id")
 	private Conta beneficiario;//conta recebedora ou null, caso não seja uma tranferência nem uma receita
+	
 	@ManyToOne
-	@JoinColumn(name = "pagador",foreignKey = @ForeignKey(name = "fk_lc_pagador"))
-	private Conta pagador;//conta pagadora ou null, caso não seja uma transferência nem uma despesa
+	@JoinColumn(name = "banco_id")  
+	private Conta banco;//conta pagadora ou null, caso não seja uma transferência nem uma despesa
+	
 	@ManyToOne
 	@JoinColumn(name = "plano_conta",foreignKey = @ForeignKey(name = "fk_lc_plano_conta"))
 	private PlanoDeConta planoDeConta;
+	
 	private String descricao;
+	
 	@Column(length = 20)
 	private String status;//em aberto, atrasado, liquidado
 	
@@ -60,17 +62,12 @@ public class Lancamento {
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
-	public Conta getBeneficiario() {
-		return beneficiario;
+	
+	public Conta getBanco() {
+		return banco;
 	}
-	public void setBeneficiario(Conta conta) {
-		this.beneficiario = conta;
-	}
-	public Conta getPagador() {
-		return pagador;
-	}
-	public void setPagador(Conta conta) {
-		this.pagador = conta;
+	public void setBanco(Conta conta) {  
+		this.banco = conta;
 	}
 	public String getDescricao() {
 		return descricao;

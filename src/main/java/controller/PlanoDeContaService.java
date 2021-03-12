@@ -7,18 +7,18 @@ public class PlanoDeContaService {
 	public PlanoDeContaService() {}
 	
 	public PlanoDeConta setTipo(PlanoDeConta plano) {
-		if(plano != null){
+		if(plano.getTipo() != null){
 			switch (plano.getTipo()) {
-			case "R":
+			case R:
 				plano.setPlanoPadrao(true);
 				break;
-			case "D":
+			case D:
 				plano.setPlanoPadrao(true);
 				break;
-			case "TC":
+			case TC:
 				plano.setPlanoPadrao(true);
 				break;
-			case "TU":
+			case TU:
 				plano.setPlanoPadrao(true);
 				break;
 			default:

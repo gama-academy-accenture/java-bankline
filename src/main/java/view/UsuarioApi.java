@@ -1,9 +1,6 @@
 package view;
 
-import java.util.List;
-
 import dao.UsuarioRepository;
-import model.Usuario;
 
 public class UsuarioApi {
 
