@@ -1,7 +1,9 @@
 package com.javamos.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,9 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.javamos.model.enuns.TiposDeConta;
+import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "tb_conta")
@@ -23,20 +27,25 @@ public class Conta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(length = 20)
+	@Column(unique = true, length = 50)
+	@NotNull
 	private String numero; //composto pelo login do usuario e o tipo da conta
 	
 	@Enumerated(EnumType.STRING)
 	private TiposDeConta tipoDeConta;  
 	
-	@ManyToOne
-	@JoinColumn(name = "usuario_id")  
+	@OneToOne
+	@NotNull
+	//@JoinColumn(name = "usuario_id")  
 	private Usuario usuario;     
 	
 	private Double saldo; //consolidado porque o saldo total vem do balanÃ§o entre receitas e despesas  
 
-	@OneToMany(mappedBy = "banco")  
-	private List<Lancamento> lancamentos;
+	@OneToMany(mappedBy = "contaOrigem", cascade = CascadeType.REMOVE)  
+	private List<Lancamento> lancamentosEviados = new ArrayList<Lancamento>();
+
+	@OneToMany(mappedBy = "contaDestinatario", cascade = CascadeType.REMOVE)  
+	private List<Lancamento> lancamentosRecebidos = new ArrayList<Lancamento>();
 	
 	public Conta(TiposDeConta tipoDeConta, Usuario usuario) {
 		this.tipoDeConta = tipoDeConta;
@@ -44,12 +53,15 @@ public class Conta {
 	}
 
 	public void addDebito(Lancamento lancamento) {
-		lancamento.setBanco(this);   
+		lancamento.setContaOrigem(this);   
+		lancamentosEviados.add(lancamento);
 
 		//lancamentos.add(lancamento);
 	}
 
 	public void addCredito(Lancamento lancamento) {
+		lancamento.setContaDestinatario(this);   
+		lancamentosRecebidos.add(lancamento);
 		//lancamento.setBeneficiario(this);
 
 		//lancamentos.add(lancamento);

@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.javamos.model.enuns.TipoMovimento;
@@ -22,8 +23,8 @@ public class PlanoDeConta {
 	@Enumerated(EnumType.STRING)
 	private TipoMovimento tipo; // R / D / TU / TC
 	
-	@ManyToOne
-	@JoinColumn(name = "usuario_id")  
+	@OneToOne
+	//@JoinColumn(name = "usuario_id")  
 	private Usuario usuario;  
 	
 	private boolean ehPlanoPadrao;
