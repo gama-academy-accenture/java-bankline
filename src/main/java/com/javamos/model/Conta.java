@@ -31,16 +31,16 @@ public class Conta {
 	
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")  
-	private Usuario usuarioId;     
+	private Usuario usuario;     
 	
 	private Double saldo; //consolidado porque o saldo total vem do balanÃ§o entre receitas e despesas  
 
 	@OneToMany(mappedBy = "banco")  
 	private List<Lancamento> lancamentos;
 	
-	public Conta(TiposDeConta tipoDeConta, Usuario usuarioId) {
+	public Conta(TiposDeConta tipoDeConta, Usuario usuario) {
 		this.tipoDeConta = tipoDeConta;
-		this.usuarioId = usuarioId; 
+		this.usuario = usuario; 
 	}
 
 	public void addDebito(Lancamento lancamento) {
@@ -64,8 +64,8 @@ public class Conta {
 	public TiposDeConta getTipoDeConta() {
 		return tipoDeConta;
 	}
-	public Usuario getUsuarioId() {
-		return usuarioId;  
+	public Usuario getUsuario() {
+		return usuario;  
 	}
 
 	/*

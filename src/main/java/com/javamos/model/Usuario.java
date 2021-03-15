@@ -42,7 +42,7 @@ public class Usuario {
 	@JoinColumn(name = "banco",foreignKey = @ForeignKey(name = "fk_us_banco"))
 	private Conta banco;
 	*/
-	@OneToMany(mappedBy = "usuarioId")
+	@OneToMany(mappedBy = "usuario")
 	private List<Conta> contas;    
 	  
 	@OneToMany(mappedBy = "usuario")  
