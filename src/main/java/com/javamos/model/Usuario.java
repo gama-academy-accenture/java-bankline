@@ -1,7 +1,9 @@
 package com.javamos.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.sun.istack.NotNull;
+
 
 @Entity
 @Table(name = "tb_usuario")
@@ -18,18 +23,18 @@ public class Usuario {
 	private Integer id;
 	
 	@Column(unique = true, length = 20)  
-	//@NotNull
+	@NotNull
 	//@Size(min = 3, max = 20)
 	private String login;
 	
 	@Column(name = "senha")  
-	//@NotNull
+	@NotNull
 	private String senhaEncriptada;
 	
-	//@NotNull
+	@NotNull
 	private String nome;
 	
-	@Column(unique = true)  
+	@Column(unique = true, length = 11)  
 	//@CPF(message = "CPF InvÃ¡lido")  
 	private String cpf;
 
@@ -42,11 +47,11 @@ public class Usuario {
 	@JoinColumn(name = "banco",foreignKey = @ForeignKey(name = "fk_us_banco"))
 	private Conta banco;
 	*/
-	@OneToMany(mappedBy = "usuarioId")
-	private List<Conta> contas;    
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
+	private List<Conta> contas = new ArrayList<Conta>(); 
 	  
-	@OneToMany(mappedBy = "usuario")  
-	private List<PlanoDeConta> planoConta;
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)  
+	private List<PlanoDeConta> planosConta = new ArrayList<PlanoDeConta>();
 	
 	public Usuario() {}
 
@@ -106,12 +111,12 @@ public class Usuario {
 		return contas;
 	}
 	
-	public void setPlanoConta(List<PlanoDeConta> planoConta) {
-		this.planoConta = planoConta;
+	public void setPlanosConta(List<PlanoDeConta> planoConta) {
+		this.planosConta = planoConta;
 	}
 	
-	public List<PlanoDeConta> getPlanoConta() {
-		return planoConta;
+	public List<PlanoDeConta> getPlanosConta() {
+		return planosConta;
 	}
 }
 
