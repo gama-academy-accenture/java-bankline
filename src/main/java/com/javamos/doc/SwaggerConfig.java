@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-package com.javamos.doc;
-
-public class SwaggerConfig {
-
-}
-=======
 package com.javamos.doc;
 
 import java.util.ArrayList;
@@ -79,4 +72,4 @@ public class SwaggerConfig {
 				"educacao@gama.academy");
 	}
 }
->>>>>>> 96a3dc44a585a38e654f6f18a38f208c0430c575
+
